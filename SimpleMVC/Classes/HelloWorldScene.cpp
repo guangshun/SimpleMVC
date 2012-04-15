@@ -1,3 +1,4 @@
+#include <sstream>
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "SMVCInclude.h"
@@ -28,7 +29,7 @@ bool HelloWorld::init()
 {
 	//////////////////////////////
 	// 1. super init first
-	if ( !CCLayer::init() )
+    if (! CCLayerColor::initWithColor( ccc4(255,255,255,255) ))
 	{
 		return false;
 	}
@@ -52,7 +53,7 @@ bool HelloWorld::init()
 
 	/////////////////////////////
 	// 3. add your codes below...
-
+/*
 	// add a label shows "Hello World"
 	// create and initialize a label
 	CCLabelTTF* pLabel = CCLabelTTF::labelWithString("Hello World", "Thonburi", 34);
@@ -74,6 +75,7 @@ bool HelloWorld::init()
 
 	// add the sprite as a child to this layer
 	this->addChild(pSprite, 0);
+  */
     
     startup();
 	
@@ -97,5 +99,16 @@ void HelloWorld::startup() {
     testSuite->run();
     testSuite->tearDown();
     //get report from testSuite
+    std::ostringstream s;
+    s << testSuite->mPassed;
+    s << " of ";
+    s << testSuite->mAll;
+    s << " test case passed";
+    cocos2d::CCLabelTTF* label = CCLabelTTF::labelWithString(s.str().c_str(),"Artial", 32);
+    label->setColor( ccc3(0, 0, 0) );
+    CCSize size = CCDirector::sharedDirector()->getWinSize();
+    label->setPosition(ccp(size.width/2, size.height/2));
+    this->addChild(label);
+    
     testSuite->release();
 }

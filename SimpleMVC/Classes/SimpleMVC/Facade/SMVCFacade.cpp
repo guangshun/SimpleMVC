@@ -51,7 +51,7 @@ namespace SimpleMVC {
     void SMVCFacade::sendNotification(SMVCNotifier::SMVCEVENT_NAME event, SMVCObject * dataObject) {
         SMVCNotifier * handler = this->mNotifiers->objectForKey(event);
         assert (handler);
-        handler->mCallback(dataObject);
+        handler->notify(dataObject);
     }
     
     SMVCObject* SMVCFacade::retrieveInstance(std::string instName) {

@@ -14,7 +14,7 @@ namespace SimpleMVC {
     class SMVCObject : public cocos2d::CCObject
     {
     public:
-        typedef void (*SMVCObjectCallback)(SMVCObject* dataObject);
+        typedef void (SMVCObject::*SMVCObjectCallback)(SMVCObject* dataObject);
         SMVCObject();
         ~SMVCObject();
         bool less(const SMVCObject& other) const;

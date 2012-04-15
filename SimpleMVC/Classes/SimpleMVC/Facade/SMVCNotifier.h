@@ -30,6 +30,10 @@ namespace SimpleMVC {
             return this->mEvent;
         }
         
+        void notify(SMVCObject* dataObject) {
+            (this->mHandler->*(this->mCallback))(dataObject);
+        }
+        
     };
 }
 

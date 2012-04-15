@@ -39,7 +39,24 @@ void SMVCFacadeTestCase::tearDown() {
     SimpleMVC::SMVCResetFacade();
 }
 
+class A:public SimpleMVC::SMVCProxy {
+public:
+    A(std::string name):SimpleMVC::SMVCProxy(name) {
+        SimpleMVC::SMVCRetrieveFacade()->mModel->registerProxy(this);
+        SimpleMVC::SMVCNotifier *n = new SimpleMVC::SMVCNotifier("DUMMY_EVENT", this, (SMVCObject::SMVCObjectCallback)(&A::onGetData));
+        SimpleMVC::SMVCRetrieveFacade()->registerNotifier(n);
+    }
+    void onGetData(SMVCObject* dataObject) {
+        assert ((int)dataObject == 1);
+    }
+    
+};
+    
 bool SMVCFacadeTestCase::testFacadeBasic() {
+    A* a = new A("DUMMY_PROXY");
+    SimpleMVC::SMVCRetrieveFacade()->sendNotification("DUMMY_EVENT", (SimpleMVC::SMVCObject*)1);
+    a->release();
     return true;
 }
+    
 }
