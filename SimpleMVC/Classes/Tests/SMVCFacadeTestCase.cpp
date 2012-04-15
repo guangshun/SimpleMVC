@@ -20,9 +20,10 @@
 using namespace cocos2d;
 
 namespace guangshun {
+    
 SMVCFacadeTestCase::SMVCFacadeTestCase() {
-    TestCase::TestCaseFunc f = (TestCase::TestCaseFunc*)this->testFacadeBasic;
-    //TestCase::TestCaseFunc f = NULL;
+    TestCase::TestCaseFunc f = 
+        (TestCase::TestCaseFunc)(&SMVCFacadeTestCase::testFacadeBasic);
     this->addTest(f);
 }
 
@@ -33,6 +34,7 @@ SMVCFacadeTestCase::~SMVCFacadeTestCase() {
 void SMVCFacadeTestCase::setUp() {
     SimpleMVC::SMVCRetrieveFacade();
 }
+    
 void SMVCFacadeTestCase::tearDown() {
     SimpleMVC::SMVCResetFacade();
 }

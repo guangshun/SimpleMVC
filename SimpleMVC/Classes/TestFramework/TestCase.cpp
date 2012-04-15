@@ -16,32 +16,34 @@ using namespace cocos2d;
 
 namespace guangshun {
     TestCase::TestCase() {
-        this->mTests = CCArray::array();
-        this->mTests->init();
     }
+    
     TestCase::~TestCase() {
-        this->mTests->release();
     }
+    
     void TestCase::setUp() {
-        
     }
+    
     void TestCase::tearDown() {
-        
     }
+    
     unsigned TestCase::run() {
         unsigned ret = 0;
-        for (unsigned i = 0; i < this->mTests->count(); ++i) {
-            this->mFunc = (TestCase::TestCaseFunc)this->mTests->objectAtIndex(i);
-            if (this->mFunc())
+        for (size_t i = 0; i < mTests.size(); ++i) {
+            TestCaseFunc mem_func_ptr = mTests[i];
+            assert(mem_func_ptr != NULL);
+            if ((this->*mem_func_ptr)())
                 ++ret;
         }
         return ret;
     }
     
     void TestCase::addTest(TestCase::TestCaseFunc func) {
-        this->mTests->addObject((CCObject*)func);
+        assert(func);
+        mTests.push_back(func);
     }
+    
     unsigned TestCase::getNumTest() {
-        return this->mTests->count();
+        return mTests.size();
     }
 }

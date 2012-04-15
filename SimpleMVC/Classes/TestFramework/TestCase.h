@@ -9,12 +9,14 @@
 #ifndef SimpleMVC_TestCase_h
 #define SimpleMVC_TestCase_h
 
+#include <vector>
+
 namespace guangshun {
     class TestCase : public cocos2d::CCObject {
-    
+    protected:
+        typedef bool (TestCase::*TestCaseFunc)(void);
+        typedef std::vector<TestCaseFunc> TestCaseFunVector;
     public:
-        typedef bool (*TestCaseFunc)();
-        
         TestCase();
         ~TestCase();
         virtual void setUp();
@@ -22,12 +24,8 @@ namespace guangshun {
         unsigned run();
         void addTest(TestCaseFunc f);
         unsigned getNumTest();
-        
-        cocos2d::CCArray* mTests;
-        
     private:        
-        TestCaseFunc mFunc;
-        
+        TestCaseFunVector mTests;
     };
     
 }
