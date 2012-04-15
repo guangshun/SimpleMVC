@@ -14,6 +14,8 @@ public:
 	
 	// a selector callback
 	virtual void menuCloseCallback(CCObject* pSender);
+    
+    void startup();
 
 	// implement the "static node()" method manually
 	LAYER_NODE_FUNC(HelloWorld);

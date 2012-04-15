@@ -1,5 +1,9 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "SMVCInclude.h"
+#include "TestCase.h"
+#include "TestSuite.h"
+#include "SMVCFacadeTestCase.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -81,4 +85,15 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
+}
+
+void HelloWorld::startup() {
+    guangshun::TestSuite *testSuite = new guangshun::TestSuite();
+    guangshun::TestCase *testCase = new guangshun::SMVCFacadeTestCase();
+    testSuite->addTest(testCase);
+    testSuite->setUp();
+    testSuite->run();
+    testSuite->tearDown();
+    //get report from testSuite
+    testSuite->release();
 }
